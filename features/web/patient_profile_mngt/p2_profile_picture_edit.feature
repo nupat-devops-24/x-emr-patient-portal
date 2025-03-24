@@ -1,7 +1,7 @@
 Feature: Edit Profile Picture
-  As an EMR system user
+  As a patient
   I want to edit my profile picture
-  So that I can personalize my account and be recognized by colleagues and patients
+  So that I can personalize my account and be easily recognized by the medical staff
 
   Background:
     Given I am logged in as a user with edit permissions
@@ -37,7 +37,7 @@ Feature: Edit Profile Picture
   Scenario: Attempt to upload an oversized image
     When I click on the edit button next to my profile picture
     And I click on "Upload new image"
-    And I select an image file "oversized_image.jpg" of 15MB from my computer
+    And I select an image file "oversized_image.jpg" of 5MB from my computer
     Then I should see an error message "Image size must be less than 5MB"
     And my profile picture should remain unchanged
     And no changes should be saved to the database
@@ -50,32 +50,7 @@ Feature: Edit Profile Picture
     And my profile picture should remain unchanged
     And no changes should be saved to the database
 
-  # Image Cropping and Editing
-  Scenario: Crop uploaded image before saving
-    When I click on the edit button next to my profile picture
-    And I click on "Upload new image"
-    And I select an image file "valid_image.jpg" from my computer
-    Then I should see an image editor with cropping functionality
-    When I adjust the cropping area to select a portion of the image
-    And I click the "Apply" button
-    And I click the "Save" button
-    Then I should see a success message "Profile picture updated successfully"
-    And my profile should display the cropped image
-    And the changes should be saved in the database
-
-  Scenario: Rotate uploaded image before saving
-    When I click on the edit button next to my profile picture
-    And I click on "Upload new image"
-    And I select an image file "valid_image.jpg" from my computer
-    Then I should see an image editor with rotation functionality
-    When I click the "Rotate 90°" button
-    And I click the "Apply" button
-    And I click the "Save" button
-    Then I should see a success message "Profile picture updated successfully"
-    And my profile should display the rotated image
-    And the changes should be saved in the database
-
-  # Default Images and Removal
+  # Default Image and Removal
   Scenario: Remove current profile picture and use default avatar
     When I click on the edit button next to my profile picture
     And I click on "Remove picture"
@@ -83,40 +58,6 @@ Feature: Edit Profile Picture
     Then I should see a success message "Profile picture removed"
     And my profile should display the default avatar
     And the changes should be saved in the database
-
-  Scenario: Select from predefined avatars
-    When I click on the edit button next to my profile picture
-    And I click on "Choose from avatars"
-    Then I should see a selection of predefined avatar images
-    When I select one of the avatar options
-    And I click the "Save" button
-    Then I should see a success message "Profile picture updated successfully"
-    And my profile should display the selected avatar
-    And the changes should be saved in the database
-
-  # Accessibility and Device Integration
-  Scenario: Take a picture using device camera
-    Given I am using a device with a camera
-    When I click on the edit button next to my profile picture
-    And I click on "Take photo"
-    Then my device camera should be activated
-    When I take a photo
-    And I approve the taken photo
-    And I click the "Save" button
-    Then I should see a success message "Profile picture updated successfully"
-    And my profile should display the new photo
-    And the changes should be saved in the database
-
-  Scenario: Provide alternative text for accessibility
-    When I click on the edit button next to my profile picture
-    And I click on "Upload new image"
-    And I select an image file "valid_image.jpg" from my computer
-    Then I should see a field for "Alternative text (for screen readers)"
-    When I enter "Headshot of Dr. Smith wearing a white coat" in the alternative text field
-    And I click the "Save" button
-    Then I should see a success message "Profile picture updated successfully"
-    And the alternative text should be saved with the image
-    And screen readers should read the alternative text when focusing on my profile picture
 
   # Security and Privacy
   Scenario: Image metadata is stripped before saving
@@ -134,3 +75,17 @@ Feature: Edit Profile Picture
     And my profile picture should be visible as a medium image in the staff directory
     And my profile picture should be visible as a small thumbnail in chat conversations
     And my profile picture should be visible as a tiny icon in the navigation bar
+
+  # --- Non-priority ---
+  # Image Cropping
+  Scenario: Crop uploaded image before saving
+    When I click on the edit button next to my profile picture
+    And I click on "Upload new image"
+    And I select an image file "valid_image.jpg" from my computer
+    Then I should see an image editor with cropping functionality
+    When I adjust the cropping area to select a portion of the image
+    And I click the "Apply" button
+    And I click the "Save" button
+    Then I should see a success message "Profile picture updated successfully"
+    And my profile should display the cropped image
+    And the changes should be saved in the database
