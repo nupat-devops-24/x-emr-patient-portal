@@ -12,10 +12,10 @@ on:
 
 jobs:
   notify-on-pr:
-    name: Notify Slack on Pull or Push Request
+    name: Notify Slack on Pull Request
     if: >
-      github.event_name == 'pull_request' ||
-      github.event_name == 'push'
+      github.event_name == 'pull_request' &&
+      github.event_name != 'push'
     runs-on: ubuntu-latest
     steps:
       - name: Checkout repo
@@ -37,7 +37,7 @@ jobs:
                   "text": {
                     "type": "mrkdwn",
                     "text": "${{ github.event.pull_request.user.login }} opened a Pull Request :rocket:. \
-                    \n\nTODO: update pr message"
+                    \n\n x-emr-app-front: "
                   }
                 },
                 {
