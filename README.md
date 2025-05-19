@@ -2,6 +2,8 @@
 
 Application description.
 
+![Patient Dashboard](/public/dashboard_v1.png)
+
 ## Navigation
 
 - [Company homepage](https://google.com)

@@ -1,0 +1,10 @@
+/* src/pages/Dashboard/Dashboard.css */
+.dashboard {
+    padding: 20px;
+}
+
+.widgets {
+    display: flex;
+    gap: 20px;
+    margin-bottom: 20px;
+}
