@@ -8,6 +8,9 @@ import Appointments from './pages/Appointments/Appointments';
 import Records from './pages/Records/Records';
 import Settings from './pages/Settings/Settings';
 import './App.css';
+import Messages from './pages/Messages/Messages';
+import Help from './pages/Help/Help';
+
 
 const App: React.FC = () => {
   return (
@@ -21,7 +24,10 @@ const App: React.FC = () => {
               <Route path="/" element={<Dashboard />} />
               <Route path="/appointments" element={<Appointments />} />
               <Route path="/records" element={<Records />} />
+              <Route path="/messages" element={<Messages />} />
               <Route path="/settings" element={<Settings />} />
+              <Route path="/help" element={<Help />} />
+
             </Routes>
           </main>
         </div>

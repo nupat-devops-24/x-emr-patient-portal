@@ -3,6 +3,7 @@ import React from 'react';
 import Widget from '../../components/Widget/Widget';
 import ActivityTable from '../../components/ActivityTable/ActivityTable';
 import './Dashboard.css';
+import WelcomeSection from '../../components/WelcomeSection/WelcomeSection';
 
 const activities = [
     { activity: 'Consultation', totalHours: '2.5', percentage: '62.5%' },
@@ -13,6 +14,7 @@ const activities = [
 const Dashboard: React.FC = () => {
     return (
         <div className="dashboard">
+             <WelcomeSection /> 
             <h1>Patient Dashboard</h1>
             <div className="widgets">
                 <Widget title="Upcoming Appointments" value="3" />

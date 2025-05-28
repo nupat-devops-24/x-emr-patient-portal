@@ -1,0 +1,55 @@
+.appointments-page {
+    padding: 20px;
+}
+
+.appointments-header {
+    margin-bottom: 20px;
+}
+
+.appointments-header h1 {
+    font-size: 24px;
+    margin-bottom: 10px;
+}
+
+.appointments-list {
+    background-color: white;
+    padding: 20px;
+    border-radius: 8px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+.appointment-card {
+    border-bottom: 1px solid #ddd;
+    padding: 12px 0;
+}
+
+.appointment-card:last-child {
+    border-bottom: none;
+}
+
+.appointment-card p {
+    margin: 5px 0;
+}
+
+.appointment-actions {
+    margin-top: 10px;
+}
+
+.appointment-actions button {
+    margin-right: 10px;
+    padding: 8px 14px;
+    border: none;
+    border-radius: 6px;
+    font-weight: 500;
+    cursor: pointer;
+}
+
+.appointment-actions .btn-reschedule {
+    background-color: #2196f3;
+    color: white;
+}
+
+.appointment-actions .btn-cancel {
+    background-color: #f44336;
+    color: white;
+}
