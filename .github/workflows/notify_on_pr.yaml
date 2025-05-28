@@ -1,4 +1,4 @@
-name: Notify Slack Channel on pull request made to x-emr app front
+name: Notify Slack Channel on pull request made to x-emr patient portal
 on:
   push:
     branches-ignore:
