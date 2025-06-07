@@ -42,3 +42,17 @@
   height: 30px;
   border-radius: 50%;
 }
+
+.auth-button {
+  margin-left: 1rem;
+  padding: 0.5rem 1rem;
+  background-color: #0066cc;
+  border: none;
+  color: white;
+  border-radius: 4px;
+  cursor: pointer;
+}
+
+.auth-button:hover {
+  background-color: #004999;
+}

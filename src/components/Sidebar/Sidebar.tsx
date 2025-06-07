@@ -17,8 +17,17 @@ const Sidebar: React.FC = () => {
                     <Link to="/appointments">Appointments</Link>
                 </li>
                 <li className={`sidebar-item ${location.pathname === '/records' ? 'active' : ''}`}>
-                    <Link to="/records">Records</Link>
+                    <Link to="/records">Medical-Records</Link>
                 </li>
+
+                <li className={`sidebar-item ${location.pathname === '/messages' ? 'active' : ''}`}>
+                    <Link to="/messages">Messages</Link>
+                </li>               
+                
+                <li className={`sidebar-item ${location.pathname === '/help' ? 'active' : ''}`}>
+                    <Link to="/help">Help</Link>
+                </li> 
+
                 <li className={`sidebar-item ${location.pathname === '/settings' ? 'active' : ''}`}>
                     <Link to="/settings">Settings</Link>
                 </li>
