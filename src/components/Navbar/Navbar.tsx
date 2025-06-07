@@ -1,5 +1,6 @@
-import React, { useState } from 'react';
-import { useNavigate } from 'react-router-dom';  // For navigation
+import React, { useState, useRef, useEffect } from 'react';
+import Calendar from 'react-calendar';
+import 'react-calendar/dist/Calendar.css';
 import './Navbar.css';
 
 interface NavbarProps {
@@ -8,20 +9,47 @@ interface NavbarProps {
 }
 
 const Navbar: React.FC<NavbarProps> = ({ logoSrc, title }) => {
+  const [isCalendarOpen, setIsCalendarOpen] = useState(false);
+  const [selectedDate, setSelectedDate] = useState<Date | null>(new Date());
   const [isLoggedIn, setIsLoggedIn] = useState(false);
-  const navigate = useNavigate();
+
+  const calendarRef = useRef<HTMLDivElement>(null);
+
+  const toggleCalendar = () => setIsCalendarOpen(!isCalendarOpen);
+
+  const onDateChange = (date: Date | Date[]) => {
+    if (Array.isArray(date)) {
+      setSelectedDate(date[0]);
+    } else {
+      setSelectedDate(date);
+    }
+  };
 
   const handleAuthClick = () => {
     if (isLoggedIn) {
-      // Logout logic
       setIsLoggedIn(false);
-      // Optional: navigate to login or home page
-      navigate('/login');
     } else {
-      // Navigate to login page
-      navigate('/login');
+      setIsLoggedIn(true);
     }
   };
+
+  useEffect(() => {
+    function handleClickOutside(event: MouseEvent) {
+      if (calendarRef.current && !calendarRef.current.contains(event.target as Node)) {
+        setIsCalendarOpen(false);
+      }
+    }
+
+    if (isCalendarOpen) {
+      document.addEventListener('mousedown', handleClickOutside);
+    } else {
+      document.removeEventListener('mousedown', handleClickOutside);
+    }
+
+    return () => {
+      document.removeEventListener('mousedown', handleClickOutside);
+    };
+  }, [isCalendarOpen]);
 
   return (
     <nav className="navbar">
@@ -31,11 +59,50 @@ const Navbar: React.FC<NavbarProps> = ({ logoSrc, title }) => {
       </div>
       <div className="navbar-actions">
         <button className="filter-btn">Filter by</button>
-        <button className="calendar-btn">Calendar</button>
+        
+        <div className="calendar-dropdown" ref={calendarRef} style={{ position: 'relative' }}>
+          <button
+            className="calendar-btn"
+            onClick={toggleCalendar}
+            aria-expanded={isCalendarOpen}
+            aria-haspopup="true"
+          >
+            Calendar
+          </button>
+
+          {isCalendarOpen && (
+            <div
+              className="calendar-popup"
+              style={{
+                position: 'absolute',
+                top: '100%',
+                right: 0,
+                zIndex: 1000,
+                backgroundColor: 'white',
+                border: '1px solid #ccc',
+                boxShadow: '0 2px 8px rgba(0,0,0,0.15)',
+                padding: '10px',
+              }}
+            >
+              <Calendar
+                onChange={onDateChange}
+                value={selectedDate || new Date()}
+                minDetail="month"
+                maxDetail="month"
+              />
+              <p style={{ marginTop: '8px', textAlign: 'center' }}>
+                Selected date: {selectedDate ? selectedDate.toDateString() : 'None'}
+              </p>
+            </div>
+          )}
+        </div>
+
         <button className="export-btn">Export</button>
+
         <div className="user-profile">
           <img src="/vite.svg" alt="User" className="user-avatar" />
         </div>
+
         <button className="auth-button" onClick={handleAuthClick}>
           {isLoggedIn ? 'Logout' : 'Login'}
         </button>
