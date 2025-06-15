@@ -17,7 +17,7 @@ const Login = () => {
   return (
     <div className="login-page">
       <div className="login-card">
-        <h2>Login to EMR Dashboard</h2>
+        <h2>Login to your EMR Dashboard</h2>
         <form onSubmit={handleLogin}>
           <input 
             type="email" 
