@@ -1,5 +1,5 @@
 import React from 'react';
-import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
+import { BrowserRouter as Router, Routes, Route, Navigate } from 'react-router-dom';
 import Navbar from './components/Navbar/Navbar';
 import Sidebar from './components/Sidebar/Sidebar';
 import Dashboard from './pages/Dashboard/Dashboard';
@@ -11,33 +11,61 @@ import Help from './pages/Help/Help';
 import NextAppointment from './components/NextAppointment/NextAppointment';
 import Reschedule from './pages/Reschedule/Reschedule';
 import Login from './pages/Login/Login';  
-import { AppointmentProvider } from './context/AppointmentContext';
+import { AppointmentProvider } from './contexts/AppointmentContext';
+import { AuthProvider, useAuth } from './contexts/AuthContext';
 import './App.css';
+
+// Private route component to protect authenticated routes
+const PrivateRoute: React.FC<{ children: JSX.Element }> = ({ children }) => {
+  const { isAuthenticated } = useAuth();
+  return isAuthenticated ? children : <Navigate to="/login" replace />;
+};
 
 const App: React.FC = () => {
   return (
     <Router>
-      <AppointmentProvider>
-      <div className="app">
-        <Navbar logoSrc="/hospital-svgrepo-com.svg" title="EMR Dashboard" />
-        <div className="main-container">
-          <Sidebar />
-          <main className="content">
-            <Routes>
-              <Route path="/" element={<Dashboard />} />
-              <Route path="/appointments" element={<Appointments />} />
-              <Route path="/records" element={<Records />} />
-              <Route path="/messages" element={<Messages />} />
-              <Route path="/settings" element={<Settings />} />
-              <Route path="/help" element={<Help />} />
-              <Route path="/next-appointment" element={<NextAppointment />} />
-              <Route path="/reschedule" element={<Reschedule />} />
-              <Route path="/login" element={<Login />} />
-            </Routes>
-          </main>
-        </div>
-      </div>
-      </AppointmentProvider>
+      <AuthProvider>
+        <AppointmentProvider>
+          <div className="app">
+            <Navbar logoSrc="/hospital-svgrepo-com.svg" title="EMR Dashboard" />
+            <div className="main-container">
+              <Sidebar />
+              <main className="content">
+                <Routes>
+                  {/* Public route */}
+                  <Route path="/login" element={<Login />} />
+
+                  {/* Protected routes */}
+                  <Route path="/" element={
+                    <PrivateRoute><Dashboard /></PrivateRoute>
+                  } />
+                  <Route path="/appointments" element={
+                    <PrivateRoute><Appointments /></PrivateRoute>
+                  } />
+                  <Route path="/records" element={
+                    <PrivateRoute><Records /></PrivateRoute>
+                  } />
+                  <Route path="/messages" element={
+                    <PrivateRoute><Messages /></PrivateRoute>
+                  } />
+                  <Route path="/settings" element={
+                    <PrivateRoute><Settings /></PrivateRoute>
+                  } />
+                  <Route path="/help" element={
+                    <PrivateRoute><Help /></PrivateRoute>
+                  } />
+                  <Route path="/next-appointment" element={
+                    <PrivateRoute><NextAppointment /></PrivateRoute>
+                  } />
+                  <Route path="/reschedule" element={
+                    <PrivateRoute><Reschedule /></PrivateRoute>
+                  } />
+                </Routes>
+              </main>
+            </div>
+          </div>
+        </AppointmentProvider>
+      </AuthProvider>
     </Router>
   );
 };

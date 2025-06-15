@@ -1,6 +1,6 @@
 import React, { useState, useContext } from 'react';
 import { useNavigate } from 'react-router-dom';
-import { AppointmentContext } from '../../context/AppointmentContext';
+import { AppointmentContext } from '../../contexts/AppointmentContext';
 import './Reschedule.css';
 
 const Reschedule: React.FC = () => {

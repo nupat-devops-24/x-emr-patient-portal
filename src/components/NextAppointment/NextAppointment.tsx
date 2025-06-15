@@ -1,5 +1,5 @@
 import React, { useContext, useEffect, useState } from 'react';
-import { AppointmentContext } from '../../context/AppointmentContext';
+import { AppointmentContext } from '../../contexts/AppointmentContext';
 import { useNavigate } from 'react-router-dom';
 import './NextAppointment.css';
 

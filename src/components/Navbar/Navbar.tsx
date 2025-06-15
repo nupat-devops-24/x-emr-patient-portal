@@ -2,6 +2,7 @@ import React, { useState, useRef, useEffect } from 'react';
 import Calendar from 'react-calendar';
 import 'react-calendar/dist/Calendar.css';
 import './Navbar.css';
+import { useAuth } from '../../contexts/AuthContext';
 
 interface NavbarProps {
   logoSrc: string;
@@ -11,9 +12,10 @@ interface NavbarProps {
 const Navbar: React.FC<NavbarProps> = ({ logoSrc, title }) => {
   const [isCalendarOpen, setIsCalendarOpen] = useState(false);
   const [selectedDate, setSelectedDate] = useState<Date | null>(new Date());
-  const [isLoggedIn, setIsLoggedIn] = useState(false);
-
   const calendarRef = useRef<HTMLDivElement>(null);
+
+  // Get auth state and actions from context
+  const { isAuthenticated, login, logout } = useAuth();
 
   const toggleCalendar = () => setIsCalendarOpen(!isCalendarOpen);
 
@@ -26,10 +28,10 @@ const Navbar: React.FC<NavbarProps> = ({ logoSrc, title }) => {
   };
 
   const handleAuthClick = () => {
-    if (isLoggedIn) {
-      setIsLoggedIn(false);
+    if (isAuthenticated) {
+      logout();
     } else {
-      setIsLoggedIn(true);
+      login();
     }
   };
 
@@ -104,7 +106,7 @@ const Navbar: React.FC<NavbarProps> = ({ logoSrc, title }) => {
         </div>
 
         <button className="auth-button" onClick={handleAuthClick}>
-          {isLoggedIn ? 'Logout' : 'Login'}
+          {isAuthenticated ? 'Logout' : 'Login'}
         </button>
       </div>
     </nav>
