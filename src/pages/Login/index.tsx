@@ -10,7 +10,7 @@ export default function Login() {
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault()
     if (email && password) {
-      login('dummy-token')
+      login()
     }
   }
 
