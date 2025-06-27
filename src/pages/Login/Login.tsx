@@ -1,23 +1,23 @@
 import React, { useState } from 'react';
-import { useNavigate } from 'react-router-dom';
+import { useAuth } from '../../contexts/AuthContext';
 import './Login.css';
 
-const Login: React.FC = () => {
+const Login = () => {
+  const { login } = useAuth();
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
-  const navigate = useNavigate();
 
   const handleLogin = (e: React.FormEvent) => {
     e.preventDefault();
     console.log('Logging in with:', email, password);
-    // mock login logic
-    navigate('/');
+    // Here you can add real login logic (API call)
+    login(); // Call context login to authenticate and redirect
   };
 
   return (
     <div className="login-page">
       <div className="login-card">
-        <h2>Login to EMR Dashboard</h2>
+        <h2>Login to your EMR Dashboard</h2>
         <form onSubmit={handleLogin}>
           <input 
             type="email" 
