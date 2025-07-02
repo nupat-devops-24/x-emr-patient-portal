@@ -1,4 +1,3 @@
-/* src/App.css */
 .app {
   display: flex;
   flex-direction: column;
@@ -18,11 +17,7 @@
   overflow-y: auto;
 }
 
-body {
-  background-color: #F4F7FA;
-  font-family: 'Roboto', sans-serif;
-  color: #2C3E50;
-}
+/* removed body {} rules */
 
 .navbar {
   background-color: #34495E;
