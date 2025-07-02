@@ -13,6 +13,8 @@ import Reschedule from './pages/Reschedule/Reschedule';
 import Login from './pages/Login/Login';  
 import { AppointmentProvider } from './contexts/AppointmentContext';
 import { AuthProvider, useAuth } from './contexts/AuthContext';
+import BodyClassController from './components/BodyClassController';
+
 import './App.css';
 
 // Private route component to protect authenticated routes
@@ -24,6 +26,7 @@ const PrivateRoute: React.FC<{ children: JSX.Element }> = ({ children }) => {
 const App: React.FC = () => {
   return (
     <Router>
+      <BodyClassController />
       <AuthProvider>
         <AppointmentProvider>
           <div className="app">
