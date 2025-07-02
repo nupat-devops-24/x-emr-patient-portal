@@ -1,0 +1,40 @@
+/* Default body style */
+body {
+    margin: 0;
+    padding: 0;
+    background-color: #ffffff;
+    color: #333;
+    font-family: system-ui, sans-serif;
+}
+
+/* Landing page green theme */
+body.landing-page {
+    background-color: #1abc9c;
+    color: #ffffff;
+}
+
+/* Optional: style buttons and cards on landing page */
+body.landing-page button,
+body.landing-page a {
+    background-color: #16a085;
+    color: #ffffff;
+    border: none;
+    padding: 0.5rem 1rem;
+    border-radius: 8px;
+    cursor: pointer;
+}
+
+body.landing-page button:hover,
+body.landing-page a:hover {
+    background-color: #138d75;
+}
+
+/* Cards, content sections */
+body.landing-page .dashboard-card,
+body.landing-page .content {
+    background-color: #149174;
+    color: #ffffff;
+    padding: 1rem;
+    border-radius: 12px;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+}
