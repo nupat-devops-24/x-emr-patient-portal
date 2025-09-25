@@ -1,5 +1,5 @@
 import React from 'react';
-import './Messages.css';
+
 
 const messages = [
   "New lab results available.",

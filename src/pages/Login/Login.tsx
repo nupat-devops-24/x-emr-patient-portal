@@ -1,41 +1,68 @@
-import React, { useState } from 'react';
-import { useAuth } from '../../contexts/AuthContext';
-import './Login.css';
+import React, { useState } from "react";
+import { useNavigate } from "react-router-dom";
+import { useAuth } from "../../context/AuthContext";
 
 const Login = () => {
+  const navigate = useNavigate();
   const { login } = useAuth();
-  const [email, setEmail] = useState('');
-  const [password, setPassword] = useState('');
 
-  const handleLogin = (e: React.FormEvent) => {
+  const [formData, setFormData] = useState({ email: "", password: "" });
+  const [error, setError] = useState("");
+
+  const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    setFormData({ ...formData, [e.target.name]: e.target.value });
+  };
+
+  const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
-    console.log('Logging in with:', email, password);
-    // Here you can add real login logic (API call)
-    login(); // Call context login to authenticate and redirect
+
+    // Dummy validation: just check if fields are filled
+    if (!formData.email || !formData.password) {
+      setError("Please enter both email and password");
+      return;
+    }
+
+    // Call login() without a real token/user
+    login();  // since your current context has no parameters
+    navigate("/");
   };
 
   return (
-    <div className="login-page">
-      <div className="login-card">
-        <h2>Login to your EMR Dashboard</h2>
-        <form onSubmit={handleLogin}>
-          <input 
-            type="email" 
-            placeholder="Email address"
-            value={email}
-            onChange={(e) => setEmail(e.target.value)}
+    <div
+      className="bg-secondary"
+      style={{ minHeight: "100vh", display: "flex", alignItems: "center", justifyContent: "center" }}
+    >
+      <form onSubmit={handleSubmit} className="card" style={{ width: "100%", maxWidth: "400px" }}>
+        <h2 className="text-primary mb-2">Login</h2>
+
+        {error && <div className="alert alert-danger mb-2">{error}</div>}
+
+        <div className="mb-2">
+          <input
+            type="email"
+            name="email"
+            value={formData.email}
+            onChange={handleChange}
+            placeholder="Email Address"
             required
           />
-          <input 
-            type="password" 
+        </div>
+
+        <div className="mb-2">
+          <input
+            type="password"
+            name="password"
+            value={formData.password}
+            onChange={handleChange}
             placeholder="Password"
-            value={password}
-            onChange={(e) => setPassword(e.target.value)}
             required
           />
-          <button type="submit" className="login-button">Login</button>
-        </form>
-      </div>
+        </div>
+
+        <button type="submit" className="btn btn-primary w-full mt-2">
+          Login
+        </button>
+      </form>
     </div>
   );
 };
